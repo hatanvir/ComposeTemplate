@@ -1,13 +1,21 @@
 package com.tvr.myapplication.features.home
 
+import android.graphics.fonts.FontStyle
 import android.os.Bundle
 import android.widget.Toolbar
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.magnifier
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,12 +29,18 @@ import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.tvr.myapplication.R
 import com.tvr.myapplication.ui.theme.ComposeTemplateTheme
 
@@ -41,11 +55,12 @@ class HomeActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
                     Scaffold(topBar = { TopBar() }, bottomBar = { BottomNav() }) {
-                        Text(
+                        Box(
                             modifier = Modifier.padding(it),
-                            text = "text",
-                            color = MaterialTheme.colorScheme.primary
-                        )
+                        ) {
+                            Greeting(name = "Test")
+                        }
+
                     }
                 }
             }
@@ -68,28 +83,28 @@ private fun TopBar() = TopAppBar(colors = TopAppBarDefaults.smallTopAppBarColors
 private fun BottomNav() = BottomNavigation {
     BottomNavigationItem(
         icon = { Icon(Icons.Filled.CheckCircle, "Circle") },
-        label = { Text(text = "Check")},
+        label = { Text(text = "Check") },
         selected = false,
         alwaysShowLabel = false,
         onClick = { /*TODO*/ }
     )
     BottomNavigationItem(
         icon = { Icon(Icons.Filled.CheckCircle, "Circle") },
-        label = { Text(text = "Check")},
+        label = { Text(text = "Check") },
         selected = false,
         alwaysShowLabel = false,
         onClick = { /*TODO*/ }
     )
     BottomNavigationItem(
         icon = { Icon(Icons.Filled.CheckCircle, "Circle") },
-        label = { Text(text = "Check")},
+        label = { Text(text = "Check") },
         selected = false,
         alwaysShowLabel = false,
         onClick = { /*TODO*/ }
     )
     BottomNavigationItem(
         icon = { Icon(Icons.Filled.CheckCircle, "Circle") },
-        label = { Text(text = "Check")},
+        label = { Text(text = "Check") },
         selected = false,
         alwaysShowLabel = false,
         onClick = { /*TODO*/ }
@@ -99,17 +114,31 @@ private fun BottomNav() = BottomNavigation {
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Column {
-        Text(
-            text = "Hello $name!", modifier = modifier
-        )
+    LazyColumn(
+        contentPadding = PaddingValues(10.dp),
+    ) {
+        items(20, itemContent = {
+            listItem()
+        })
+    }
+}
 
+@Composable
+fun listItem() = Box(
+    modifier = Modifier
+        .padding(10.dp)
+        .border(.5.dp, color = Color.Gray, shape = RoundedCornerShape(10.dp))
+        .padding(10.dp),
+) {
+    Column {
+        Text(text = "Java", fontSize = 20.sp)
+        Box(modifier = Modifier.height(5.dp))
         Text(
-            text = "Hello $name!", modifier = modifier
+            text = "Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.",
+            fontSize = 16.sp,
+            color = Color.Gray
         )
-        Text(
-            text = "Hello $name!", modifier = modifier
-        )
+        Box(modifier = Modifier.height(15.dp))
     }
 }
 
